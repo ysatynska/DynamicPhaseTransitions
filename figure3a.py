@@ -23,13 +23,14 @@ def dm_dt(t, m):
 sol = solve_ivp(dm_dt, (0, max_time), m0, t_eval=t_vals)
 
 # ---------- main hysteresis loop, styled like Figure 2 ----------
-plt.figure(figsize=(8, 5))
+plt.figure(figsize=(8, 4))
 plt.plot(h, sol.y[0], color="green", linewidth=3)
 
-plt.xlabel(r"$h(t)$", fontsize=20)
-plt.ylabel(r"$m(t)$", fontsize=20)
+plt.xlabel(r"$h(t)$", fontsize=22)
+plt.ylabel(r"$m(t)$", fontsize=22)
 
 ax = plt.gca()
+ax.tick_params(axis="both", which="major", labelsize=16)
 
 # major ticks every 0.5 on both axes
 ax.xaxis.set_major_locator(MultipleLocator(0.5))

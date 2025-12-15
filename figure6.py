@@ -118,8 +118,8 @@ fig, ax = plt.subplots(figsize=(8, 5))
 ax.set_xscale('log')
 ax.set_yscale('log')
 
-ax.set_xlabel(r"$h_{\mathrm{mult}}$", fontsize=20)
-ax.set_ylabel(r"$z_k$", fontsize=20)
+ax.set_xlabel(r"$h_{\mathrm{mult}}$", fontsize=22)
+ax.set_ylabel(r"$z_k$", fontsize=22)
 
 # Reference scaling line ~ h_mult^{1/3}
 ax.plot(
@@ -142,10 +142,10 @@ for spine in ax.spines.values():
     spine.set_linewidth(1.3)
 
 # Tick label size
-ax.tick_params(axis='both', which='both', labelsize=14)
+ax.tick_params(axis='both', which='both', labelsize=16)
 
 # Legend
-ax.legend(loc="upper left", fontsize=15, frameon=True)
+ax.legend(loc="upper left", fontsize=16, frameon=True)
 
 plt.tight_layout()
 plt.savefig("figures/Figure6.png", dpi=300)

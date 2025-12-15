@@ -33,9 +33,10 @@ for h_val, c, ls in zip(h_values, colors, linestyles):
 plt.xlim(-2.0, 2.0)
 plt.ylim(-2.0, 1.0)
 
-plt.xlabel(r"$m(t)$", fontsize=20)
-plt.ylabel(r"$F(m)$", fontsize=20)
+plt.xlabel(r"$m$", fontsize=22)
+plt.ylabel(r"$F(m)$", fontsize=22)
 ax = plt.gca()
+ax.tick_params(axis="both", which="major", labelsize=16)
 
 # major ticks every 0.5 on both axes
 ax.xaxis.set_major_locator(MultipleLocator(0.5))
@@ -44,7 +45,7 @@ ax.yaxis.set_major_locator(MultipleLocator(0.5))
 # thicker axes borders (spines)
 for spine in ax.spines.values():
     spine.set_linewidth(1.3)
-plt.legend(fontsize=15)
+plt.legend(fontsize=16)
 plt.tight_layout()
 plt.savefig("figures/Figure2.png", dpi=300)
 plt.show()

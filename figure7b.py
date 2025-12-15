@@ -112,52 +112,43 @@ fig, ax = plt.subplots(figsize=(4, 5))
 
 ax.set_xscale('log')
 ax.set_yscale('log')
-ax.tick_params(axis='both', which='both', labelsize=14)
+ax.tick_params(axis='both', which='both', labelsize=16)
 for spine in ax.spines.values():
     spine.set_linewidth(1.3)
 
-exp_min, exp_max = -11.0, -10.0
-exponents = np.arange(exp_min, exp_max + 0.0001, 0.4)   # -11, -10.9, ..., -10
+# ---- custom x ticks (same style as Fig 7a) ----
+exp_min, exp_max = -10.9, -10.0
+exponents = np.arange(exp_min, exp_max + 1e-9, 0.4)
 xticks = 10**exponents
 ax.set_xticks(xticks)
 ax.set_xticklabels([rf"$10^{{{e:.1f}}}$" for e in exponents])
 
 # reference ~ h_mult^{2/3}
 h23 = [float(mp.power(i, mp.mpf(2)/3)) for i in h_mults]
-ax.plot(
-    h_mults,
-    h23,
-    'k--',
-    lw=2,
-    label=r"$h_{\mathrm{mult}}^{2/3}$"
-)
+ax.plot(h_mults, h23, 'k--', lw=2, label=r"$h_{\mathrm{mult}}^{2/3}$")
 
 for n in range(1, num_k, 2):
     re_vals = [float(abs(mp.re(d[n]))) for d in delta_mks]
     im_vals = [float(abs(mp.im(d[n]))) for d in delta_mks]
-    ax.plot(
-        h_mults,
-        re_vals,
-        linestyle='-',
-        label=rf"$|{{\Re(d m_{n})}}|$"
-    )
-    ax.plot(
-        h_mults,
-        im_vals,
-        linestyle='--',
-        label=rf"$|{{\Im(d m_{n})}}|$"
-    )
-ax.set_ylim(10**-8.5, 10**-6.6)
+    ax.plot(h_mults, re_vals, linestyle='-',  label=rf"$|{{\Re(d m_{n})}}|$")
+    ax.plot(h_mults, im_vals, linestyle='--', label=rf"$|{{\Im(d m_{n})}}|$")
 
-# exponents -8, -7.8, ..., -6.6, -6.4, -6.2, -6.0?  NO, stop at -6.5
-exp_min_y, exp_max_y = -8.5, -6.6
-exponents_y = np.arange(exp_min_y, exp_max_y + 1e-6, 0.2)
+# y-limits (keep yours)
+ax.set_ylim(10**-9.2, 10**-6.6)
+
+# ---- y ticks every 10^(0.5) (same as Fig 7a) ----
+exp_min_y, exp_max_y = -9.2, -6.6
+start = np.ceil(exp_min_y * 2) / 2
+end   = np.floor(exp_max_y * 2) / 2
+
+exponents_y = np.arange(start, end + 1e-9, 0.5)
 yticks = 10**exponents_y
 ax.set_yticks(yticks)
 ax.set_yticklabels([rf"$10^{{{e:.1f}}}$" for e in exponents_y])
-ax.set_xlabel(r"$h_{\mathrm{mult}}$", fontsize=20)
-ax.set_ylabel(r"$|d m_n|$", fontsize=20)
-ax.legend(fontsize=12, loc="lower right", frameon=True)
+
+ax.set_xlabel(r"$h_{\mathrm{mult}}$", fontsize=22)
+ax.set_ylabel(r"$|d m_n|$", fontsize=22)
+ax.legend(fontsize=16, loc="lower right", frameon=True)
 
 plt.tight_layout()
 plt.savefig("figures/Figure7b.png", dpi=300)

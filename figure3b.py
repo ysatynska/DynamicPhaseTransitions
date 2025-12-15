@@ -26,7 +26,7 @@ sol = solve_ivp(dm_dt, (0, max_time), m0, t_eval=t_vals)
 # =======================
 # 1) Main hysteresis loop
 # =======================
-plt.figure(figsize=(8, 5))
+plt.figure(figsize=(8, 4))
 
 # first trajectory: light purple
 plt.plot(h, sol.y[0], color="red", linewidth=3,
@@ -41,6 +41,7 @@ plt.ylabel(r"$m(t)$", fontsize=22)
 #           fontsize=15, fontweight="bold")
 
 ax = plt.gca()
+ax.tick_params(axis="both", which="major", labelsize=16)
 
 # major ticks every 0.5 on both axes
 ax.xaxis.set_major_locator(MultipleLocator(0.5))
@@ -50,7 +51,7 @@ ax.yaxis.set_major_locator(MultipleLocator(0.5))
 for spine in ax.spines.values():
     spine.set_linewidth(1.3)
 
-plt.legend(fontsize=15)
+plt.legend(fontsize=16)
 plt.tight_layout()
 plt.savefig("figures/Figure3b.png", dpi=300)
 plt.show()

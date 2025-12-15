@@ -116,13 +116,13 @@ fig, ax = plt.subplots(figsize=(4, 5))
 # log–log axes + style
 ax.set_xscale('log')
 ax.set_yscale('log')
-ax.tick_params(axis='both', which='both', labelsize=14)
+ax.tick_params(axis='both', which='both', labelsize=16)
 for spine in ax.spines.values():
     spine.set_linewidth(1.3)
 
 # ---- custom x ticks: exponents every 0.1 ----
 # change -11, -10 to -7, -6 if you really want 10^-7 ... 10^-6.xxx
-exp_min, exp_max = -11.0, -10.0
+exp_min, exp_max = -10.9, -9.8
 exponents = np.arange(exp_min, exp_max + 0.0001, 0.4)   # -11, -10.9, ..., -10
 xticks = 10**exponents
 ax.set_xticks(xticks)
@@ -155,17 +155,22 @@ for n in range(0, num_k, 2):
             linestyle='--',
             label=rf"$|{{\Im(d m_{n})}}|$"
         )
-ax.set_ylim(10**-5.4, 10**-3.2)
+# y-limits (keep yours)
+ax.set_ylim(10**-5.7, 10**-3.2)
 
-# exponents -8, -7.8, ..., -6.6, -6.4, -6.2, -6.0?  NO, stop at -6.5
-exp_min_y, exp_max_y = -5.4, -3.2
-exponents_y = np.arange(exp_min_y, exp_max_y + 1e-6, 0.3)
+# y ticks every 10^(0.5)
+exp_min_y, exp_max_y = -5.7, -3.2
+start = np.ceil(exp_min_y * 2) / 2   # snap up to nearest 0.5
+end   = np.floor(exp_max_y * 2) / 2  # snap down to nearest 0.5
+
+exponents_y = np.arange(start, end + 1e-9, 0.5)
 yticks = 10**exponents_y
 ax.set_yticks(yticks)
 ax.set_yticklabels([rf"$10^{{{e:.1f}}}$" for e in exponents_y])
-ax.set_xlabel(r"$h_{\mathrm{mult}}$", fontsize=20)
-ax.set_ylabel(r"$|d m_n|$", fontsize=20)
-ax.legend(fontsize=12, loc="lower right", frameon=True)
+
+ax.set_xlabel(r"$h_{\mathrm{mult}}$", fontsize=22)
+ax.set_ylabel(r"$|d m_n|$", fontsize=22)
+ax.legend(fontsize=16, loc="lower right", frameon=True)
 
 plt.tight_layout()
 plt.savefig("figures/Figure7a.png", dpi=300)
